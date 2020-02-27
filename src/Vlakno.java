@@ -4,9 +4,11 @@ public class Vlakno implements Runnable{
 
     private Thread t;
     private String name;
+    private int priority;
 
-    public Vlakno(String name) {
+    public Vlakno(String name, int priority) {
         this.name = name;
+        this.priority = priority;
         System.out.println(name + " has been created!");
     }
 
@@ -16,7 +18,7 @@ public class Vlakno implements Runnable{
         try {
             for(int i = 1; i<=10; i++){
                 int vypis = getTimeMs();
-                System.out.println(vypis);
+//                System.out.println(vypis);
                 Thread.sleep(vypis);
                 System.out.println(name+ " " + i);
             }
@@ -36,6 +38,10 @@ public class Vlakno implements Runnable{
 
     public int getTimeMs(){
         Random random = new Random();
-        return random.nextInt(4000)+1000;
+        if (this.priority == 1)
+            return random.nextInt(2000)+500;
+        else if (this.priority == 2)
+            return random.nextInt(3000)+1000;
+        else return random.nextInt(4000)+2000;
     }
 }
